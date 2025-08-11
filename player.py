@@ -2,15 +2,16 @@ from circleshape import CircleShape
 from constants import *
 import pygame
 
-class Player(CircleShape):
-    def __init__(self, x: int, y: int):
-
-        # Call the parent constructor with x, y, and PLAYER_RADIUS
-        super().__init__(x, y, PLAYER_RADIUS)
-        self.rotation = 0 #initial rotation
+class Player(CircleShape, pygame.sprite.Sprite):
+    def __init__(self, x: int, y: int, *groups):
+        CircleShape.__init__(self, x, y, PLAYER_RADIUS)
+        pygame.sprite.Sprite.__init__(self, *groups)
+        self.rotation = 0  # initial rotation
     
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
+  
+
 
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)

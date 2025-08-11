@@ -18,30 +18,31 @@ def main():
     #Delta time variable
     dt=0
 
-    # Create the Player object in the center of the screen
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    #Groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
 
-    # Game loop
+    # Create Player in both groups
+    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, updatable, drawable)
+
+     # Game loop
     while True:
-        # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
+        # Update all updatables
+        updatable.update(dt)
+
         # Fill the screen black
         screen.fill("black")
 
-        # Draw the player
-        player.draw(screen)
+        # Draw all drawables
+        for obj in drawable:
+            obj.draw(screen)
 
-        # Refresh the display
         pygame.display.flip()
-
-        # Control the frame rate and calculate delta time
         dt = clock.tick(60) / 1000
-
-        player.update(dt)
-
 
 if __name__ == "__main__":
     main()
