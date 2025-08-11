@@ -1,5 +1,6 @@
 import pygame
 from constants import *
+from player import *
 
 def main():
     pygame.init() # Initialize pygame
@@ -17,21 +18,27 @@ def main():
     #Delta time variable
     dt=0
 
-    #Game loop
+    # Create the Player object in the center of the screen
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    # Game loop
     while True:
-        #Fill the screen black
-        screen.fill("black")
-
-        #Refresh the display
-        pygame.display.flip()
-
-        #Control the frame rate and calculate the time in seconds
-        dt = clock.tick(60)/1000
-
+        # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
+        # Fill the screen black
+        screen.fill("black")
+
+        # Draw the player
+        player.draw(screen)
+
+        # Refresh the display
+        pygame.display.flip()
+
+        # Control the frame rate and calculate delta time
+        dt = clock.tick(60) / 1000
 
 
 if __name__ == "__main__":
