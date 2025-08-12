@@ -1,40 +1,36 @@
 import pygame
 from constants import *
-from player import *
-from asstroidsfield import *
+from player import Player
+from asstroid import Asteroid
+from asstroidsfield import AsteroidField
 
 def main():
-    pygame.init() # Initialize pygame
+    pygame.init()
 
     print("Starting Asteroids!")
     print("Screen width:", SCREEN_WIDTH)
     print("Screen height:", SCREEN_HEIGHT)
 
-    #Create game window
+    # Create game window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+    dt = 0
 
-    #Create an clock object to control the frame rate
-    clock = pygame.time.Clock();
-
-    #Delta time variable
-    dt=0
-
-    #Groups
+    # Sprite groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
 
-    # Set static containers for Asteroid & AsteroidField
+    # Set static containers
+    Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
 
-    # Create asteroid field object
+    # Create game objects
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
 
-    # Create Player in both groups
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, updatable, drawable)
-
-     # Game loop
+    # Game loop
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,10 +39,15 @@ def main():
         # Update all updatables
         updatable.update(dt)
 
-        # Fill the screen black
-        screen.fill("black")
+        # Collision check: Player vs Asteroids
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
+                print("Game over!")
+                pygame.quit()
+                raise SystemExit
 
-        # Draw all drawables
+        # Draw everything
+        screen.fill("black")
         for sprite in drawable:
             sprite.draw(screen)
 
