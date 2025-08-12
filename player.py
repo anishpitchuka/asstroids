@@ -9,6 +9,7 @@ class Player(CircleShape, pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, *groups)
         self.rotation = 0  # initial rotation
         self.shots_group = None  # will store the group for bullets
+        self.shoot_timer = 0
 
     def set_shots_group(self, shots_group):
         """Assign the shots group after player creation."""
@@ -23,6 +24,7 @@ class Player(CircleShape, pygame.sprite.Sprite):
 
 
     def update(self, dt):
+        self.shoot_timer -= dt
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
@@ -37,6 +39,9 @@ class Player(CircleShape, pygame.sprite.Sprite):
             self.shoot()
 
     def shoot(self):
+        if self.shoot_timer > 0:
+            return
+        self.shoot_timer = PLAYER_SHOOT_COOLDOWN
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
 
