@@ -29,8 +29,10 @@ Survive as long as you can without getting hit yourself!
    git clone https://github.com/anishpitchuka/asstroids.git
    cd asstroids
 
-2. Install dependencies
+2. **Install dependencies**
+    ```bash
     pip install pygame
 
-3. Run the game
+3. **Run the game**
+    ```bash
     python main.py
