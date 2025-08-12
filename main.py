@@ -3,6 +3,7 @@ from constants import *
 from player import Player
 from asstroid import Asteroid
 from asstroidsfield import AsteroidField
+from shot import *
 
 def main():
     pygame.init()
@@ -20,6 +21,11 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
+
+    Asteroid.containers = (asteroids, updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
+
 
     # Set static containers
     Player.containers = (updatable, drawable)
@@ -51,6 +57,7 @@ def main():
         for sprite in drawable:
             sprite.draw(screen)
 
+        
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
