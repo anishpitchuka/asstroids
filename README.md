@@ -1,7 +1,7 @@
 # Asstroids 💥🍑
 
 Asstroids is a Pygame-based arcade game inspired by the classic **Asteroids**,  
-except here you’re not blasting space rocks — you’re splitting *booty.png* into smaller pieces until nothing is left!
+except here you’re not blasting space rocks — you’re splitting booty🍑 into smaller pieces until nothing is left!
 
 ## 🎯 Game Objective
 Pilot your ship, aim your gun, and shoot down incoming booty.  
